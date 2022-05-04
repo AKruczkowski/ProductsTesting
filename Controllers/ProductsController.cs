@@ -5,26 +5,34 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ProductsNew.Controllers
 {
+   [EnableCors(origins: "*", headers:"*",methods:"*")]
+   [RoutePrefix("api/Products")]
     public class ProductsController : ApiController
     {
-        // QUESTIONS
-        //  IhttpActionResult instead of HttpResponseMessage? - suggested by microsoft
 
         ProductsContext productsContext = new ProductsContext();
 
 
         // GET: api/Products
+        [Route("GetProducts")]
         public HttpResponseMessage Get()
         {
             var products = productsContext.Products.ToList();
+            //.Include(p => p.OrdernDetails).AsEnumerable();
+            foreach (var product in products)
+            {
+               int x = product.OrdernDetails.Count;
+            }
             return Request.CreateResponse(HttpStatusCode.OK, products);
         }
 
 
         // GET: api/Products/5
+        [Route("GetProduct")]
         public HttpResponseMessage Get(int id)
         {
             var result = productsContext.Products.FirstOrDefault(e => e.Product_ID == id);
@@ -39,7 +47,7 @@ namespace ProductsNew.Controllers
         }
 
         // POST: api/Products
-
+        [Route("AddProduct")]
         public HttpResponseMessage Post([FromBody] Products product)
         {
             try
@@ -65,6 +73,8 @@ namespace ProductsNew.Controllers
         }
 
         // PUT: api/Products/5
+        [Route("EditProduct")]
+        [HttpPut]
         public HttpResponseMessage Put(int id, [FromBody] Products value)
         {
             try
@@ -99,6 +109,7 @@ namespace ProductsNew.Controllers
         }
 
         // DELETE: api/Products/5
+        [Route("RemoveProduct")]
         public HttpResponseMessage Delete(int id)
         {
             try
