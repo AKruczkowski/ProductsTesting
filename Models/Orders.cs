@@ -12,25 +12,21 @@ namespace ProductsNew.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class Orders
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public Orders()
         {
             this.OrdernDetails = new HashSet<OrdernDetails>();
         }
     
-        public int Product_ID { get; set; }
-        public string Name { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<decimal> Width { get; set; }
-        public Nullable<decimal> Height { get; set; }
-        public Nullable<decimal> Length { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Description { get; set; }
-        public string Category { get; set; }
+        public int Order_ID { get; set; }
+        public string Address { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdernDetails> OrdernDetails { get; set; }
+
+       // public IEnumerable <OrdernDetails> Details { get; set; }
     }
 }

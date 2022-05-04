@@ -18,6 +18,9 @@ namespace ProductsNew.Models
         public ProductsContext()
             : base("name=ProductsContext")
         {
+            Database.SetInitializer<ProductsContext>(null);
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,5 +29,8 @@ namespace ProductsNew.Models
         }
     
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<OrdernDetails> OrdernDetails { get; set; }
     }
 }
